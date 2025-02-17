@@ -1,0 +1,25 @@
+Basic File & Disk handling
+===============================
+Implement methods to perform basic file handling similar to how CBM Basic does it. 
+
+Eg: 
+  +open_write 1,8,1,"filename,s"
+
+  +open_read .lfn,.dev,.secondary,"filename"
+    
+  +print_lfn, "text"
+    Similar to print#<lfn>,"text"
+  +read_line .lfn, .max_len, .address
+    Read a line of text or up to .max_len and store at .address. 
+  +close 1
+
+  +bsave "filename",bank,start,end or "filename",bank,start,length
+    Save file from memory.
+  +bload "filename" or "filename",bank,start
+    Load file into memory.
+  +drive_error ? 
+    Retrieve drive error status (ds$)
+  +directory ?
+    Retrieve directory. 
+
+Future / Not in Scope: +scratch, +collect, +copy .... 

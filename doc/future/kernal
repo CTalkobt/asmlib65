@@ -1,0 +1,9 @@
+Kernal Routines
+-----------------------------------
+Define labels for all kernal routines beginning with _.
+Define macros for all kernal routines so that registers will be loaded correctly. 
+
+Eg: 
+  +close 1  ; Close lfn #1. 
+
+etc. 

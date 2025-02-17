@@ -1,0 +1,25 @@
+;
+; Shell
+;
+; Supported commands
+; 
+;  *ls  - Show current directory. 
+;  *cd  - Change directory/mount .d81
+;  exit - Exit from shell;
+;  *cat - Display file
+;  echo - Echo string (String only - interpretation at some future point). 
+;
+shell:
+   phw shell_disp
+   jsr print_axp
+   rts
+
+print_axp:
+   ldy #$00
+   lda ($02,SP),y
+   tax
+   iny
+   lda ($02,SP),y
+   jsr print_ax
+   rts
+

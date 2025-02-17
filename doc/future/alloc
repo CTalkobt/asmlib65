@@ -1,0 +1,30 @@
+Memory allocation
+========================
+Large memory allocation for > 255 bytes.
+See talloc for auto-style allocation of <= 255 bytes. 
+
+Implementation:
+---------------
+Additional research needed. Thoughts of reserving a block availability structure where is block is a power of 2^n bytes.  A used list is retained along with pointer id's. 
+
+? Should pointers be 3 bytes to handle banking? 
+? Should we look at "device" storage for eg, REU, Ramlink, or even drive 
+  stroage? Given that, do we then want a +make_available to shift the 
+  pointer id storage to memory? 
+? Given above ? it then asks, do we want a "keep in resident memory" flag. 
+? Question, questions.... 
+
+Possible Routines:
+------------------
+  +alloc zp_address, size
+    .XY - Pointer id - This is not the same as the pointer location. 
+    Automatically invokes garbage collection. 
+  +calloc zp_address, size
+    Similar to alloc but ensure memory is cleared. 
+    Automatically invokes garbage collection.
+  +free pointer_id / .xy
+    Free the given pointer id
+  +realloc pointer_id, new_size
+    Allocate new_size in existing pointer location 
+  +get_ptr zp_address, pointer_id
+    Retreives memory location based on pointer id to zp_address. 

@@ -1,0 +1,22 @@
+Tiny "Allocate"
+=====================================================
+Only allow for allocation of up to 255 bytes. 
+
+Implementation:
+---------------
+
+Save the contents of a zp ptr to the stack and then set that to inside the stack where I've allocated the space. The free routine would then restore the contents of the zp ptr and free up the stack allocation.  
+
+Routines:
+---------
+  - +talloc zp_address, size
+    Saves contents of zp_address ptr on the stack. 
+	Push byte address of zp_address
+    Then allocates given size on stack. 
+	Pushes size on stack. 
+  - +tfree 
+	Pull size from stack. 
+	Adjust stack size down.
+	Pull address
+	Pull contents of zp register and copy to just pulled address. 
+
