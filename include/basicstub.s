@@ -1,3 +1,5 @@
+#importonce
+
 //
 // Generates a basic stub that creates a "SYS" statement
 // to the given .start routine, along with REM comment. 

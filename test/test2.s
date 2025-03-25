@@ -2,6 +2,7 @@
 	.encoding "petscii_mixed"
 * = $2001
 #import "include/basicstub.s"
+.print(pet_palette1.white)
 basic_stub(banner, " CTALKOBT")
 
 #import "include/keydefs.s"
@@ -19,10 +20,6 @@ banner:
 	putchar(pet_palette1.white)
  	print_lowercase()
  	print(@"Test v0.0.1\nLine2\r")
-
-#import "include/basic.s"
-	border(BLACK)
-
 
 	ld8_32(rtc)
 	print_a_hex()
