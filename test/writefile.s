@@ -9,12 +9,12 @@ basic_stub(start, " CTALKOBT")
 diagnoseerror:
 start:
 	k_setbank(0,0)
-	k_setnam_va(6, filename)    // indicate no filename needed. 
-	k_setlfs($01, $08, $01)     // set lfs=<generate>, dev 8, channel 1. 
-	tax                      // .x = logical file number. 
-	stx $0801
+	; k_setnam_va(6, filename)    // indicate no filename needed. 
+	; k_setlfs($01, $08, $01)     // set lfs=<generate>, dev 8, channel 1. 
+	; tax                      // .x = logical file number. 
 
-	k_open()
+	; jsr _open
+	open(1,8,1,"test,s")
 	bcs error
 
 	ldx #$1

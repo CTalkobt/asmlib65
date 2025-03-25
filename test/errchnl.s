@@ -8,11 +8,11 @@ basic_stub(start, " CTALKOBT")
 diagnoseerror:
 start:
 	k_setbank(0,0)
-	k_setnam(0, 0)    // indicate no filename needed. 
+	k_setnam_none()    // indicate no filename needed. 
 	k_setlfs($00, $08, $0f)  // set lfs=00, dev 8, channel 15. 
 	tax
 
-	k_open()
+	jsr _open
 	bcs error
 
     jsr _chkin         // CHKIN (Set input channel)

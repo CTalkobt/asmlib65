@@ -1,3 +1,4 @@
+#importonce
 
 .const current_device = $ba        // Current device number, generally 8
 
@@ -62,6 +63,8 @@
 .const _scrorg      = $ffed
 .const _plot        = $fff0
 
+
+
 //
 // File handling routines. 
 //
@@ -71,12 +74,13 @@
 //    macro_name - Without any _a or _v suffixes will indicate a
 //       macro invocation that takes values instead of memory 
 //       addresses. 
-//    macro_name_a - Indicates that the 1st parameter takes an address
-//    macro_name_aav - Indicates that the 1st and 2nd paramters are 
+//    macroName_a - Indicates that the 1st parameter takes an address
+//    macroName_aav - Indicates that the 1st and 2nd paramters are 
 //      addresses while the 3rd is a value. 
 //
 // Note that the _a or _v suffixes are only provided when it makes 
-//   sense and not all permuations are provided. 
+//   sense (eg: str parametmers are understood to be via address 
+//   reference) and not all permuations are provided. 
 // 
 
 //
@@ -111,9 +115,16 @@
 //   .length   - Length of filename not including 0 byte.
 //   .filename - Filename; only needed if .length != 0 
 //
-.macro k_setnam(length, str) {
-	lda #length
-	.if (length > 0) {
+.macro k_setnam_none() {
+	lda #0
+	tax
+	tay
+	jsr _setnam
+	
+}
+.macro k_setnam(str) {
+	lda #str.size()
+	.if (str.size() > 0) {
 	bra !++
 !: .text str
 	.byte 0
@@ -157,13 +168,27 @@
 }
 
 //
+// Kernal invocation to open logical file.
+// Input: 
+//    lfn - Logical file #.
+// Output: 
+//    .C flag - Error if set.
+//    .A      - Error code if error.  
+.macro k_open(lfn) {
+	ldx #lfn
+	jsr _open
+}
+
+//
 // Open logical file.
-// Input:
+// Input: 
 // Output:
 //   .C flag - Error
 //   .A      - Error code if error. 
-.macro k_open() {
-	jsr _open
+.macro open(lfn,dev_num,dev_chnl,filename) {
+	k_setlfs(lfn, dev_num, dev_chnl)
+	k_setnam(filename)
+	k_open(lfn)
 }
 
 // 

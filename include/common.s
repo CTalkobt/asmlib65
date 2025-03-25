@@ -1,3 +1,6 @@
+#importonce
+
+
 .macro print_lowercase() {
 	lda #14
 	jsr _bsout
@@ -171,3 +174,4 @@ hex_digits:
 	ldz #$00
 	lda (($fc)),z
 }
+
